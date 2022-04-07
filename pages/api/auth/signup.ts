@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   await prisma.user.create({
     data: {
-      name,
+      name: name,
       email: userEmail,
       password: hashedPassword,
     },

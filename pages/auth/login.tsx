@@ -3,8 +3,10 @@ import { GetServerSidePropsContext } from "next";
 import { getCsrfToken, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-
+import InputElement from "@components/Input";
 import { getSession } from "@helpers/auth";
+import Link from 'next/link';
+import Head from 'next/head';
 
 interface ServerSideProps {
   csrfToken: string;
@@ -45,34 +47,53 @@ export default function Login({ csrfToken }: ServerSideProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="csrfToken" type="hidden" defaultValue={csrfToken || undefined} hidden />
-      <input
-        id="email"
-        name="email"
-        type="email"
-        placeholder="email"
-        required
-        value={email}
-        onInput={(e) => setEmail(e.currentTarget.value)}
-        className="block border border-neutral-300 focus:ring-neutral-900"
-      />
-      <input
-        id="password"
-        name="password"
-        type="password"
-        placeholder="password"
-        autoComplete="current-password"
-        required
-        value={password}
-        onInput={(e) => setPassword(e.currentTarget.value)}
-        className="block border border-neutral-300 focus:ring-neutral-900"
-      />
+    <>
+      <Head>
+        <title>Cal.com - Login</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="px-8 py-6 mt-4 text-left bg-white shadow-lg">
+          <h1 className="text-3xl font-bold text-center">Cal.com</h1>
+          <h1 className="text-3xl font-bold text-center">Sign in to your account</h1>
+          <form method="POST" className="mt-4" onSubmit={handleSubmit}>
+            <input name="csrfToken" type="hidden" defaultValue={csrfToken || undefined} hidden />
+            <div className="mb-4">
+              <label className="block">Email</label>
+              <InputElement
+                inputype='email'
+                value={email}
+                onInput={(e) => setEmail(e.currentTarget.value)}
+              />
+            </div>
 
-      <button type="submit" disabled={isSubmitting} className="p-1 text-white bg-blue-800">
-        SIGN IN
-      </button>
-    </form>
+            <div className="mt-4">
+              <label className="block">Password</label>
+              <span className="inline float-right">
+                <Link href="/auth/register" class="text-sm text-blue-600 hover:underline">Forgot password?</Link></span>
+              <InputElement
+                inputype='password'
+                value={password}
+                onInput={(e) => setPassword(e.currentTarget.value)}
+              />
+            </div>
+
+            <div className="mt-4">
+              <button type='submit' disabled={isSubmitting} className="px-6 py-2 block w-full text-white bg-black rounded-none">
+                Sign in
+              </button>
+            </div>
+          </form>
+          <div className=" p-3">
+            <p className="text-center"> <span className=" text-gray-500">Don't have an account?</span>  <Link href="/" className="text-black font-bold">Create account</Link> </p>
+          </div>
+        </div>
+
+      </div>
+
+    </>
+
+
   );
 }
 
