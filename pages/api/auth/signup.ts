@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { NextApiRequest, NextApiResponse } from "next";
-
 import { hashPassword } from "@helpers/auth";
 import prisma from "@helpers/prisma";
 
@@ -34,7 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const hashedPassword = await hashPassword(password);
-
+  1
   await prisma.user.create({
     data: {
       name: name,

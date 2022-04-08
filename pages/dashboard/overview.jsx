@@ -1,11 +1,11 @@
-// eslint-disable-next-line prettier/prettier
 import Header from "@components/Header";
+import Shell from "@components/Shell";
 
 const Overview = () => {
     return (
-        <>
+        <Shell>
             <Header />
-        </>
+        </Shell>
     );
 };
 

@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import Link from 'next/link';
 
 const Header = () => {
     return (
@@ -29,12 +30,12 @@ const Header = () => {
                             </a>
                         </li>
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                href="/api/auth/signout"
                                 className="block py-2 pr-4 pl-3 text-white  rounded"
                                 aria-current="page">
                                 Logout
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

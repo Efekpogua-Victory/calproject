@@ -34,11 +34,12 @@ export default function Signup() {
       })
       .then(() => {
         alert("success");
-        window.location.replace("/");
+        window.location.replace("/dashboard/overview");
       })
       .catch((e) => {
         setIsSubmitting(false);
         const errorMessage = e.response?.data?.message;
+        //console.log(errorMessage || e.message);
         alert(errorMessage || e.message);
       });
   }
@@ -58,7 +59,7 @@ export default function Signup() {
       <input
         id="email"
         name="email"
-        type="email"
+        type="text"
         placeholder="email"
         required
         value={email}
