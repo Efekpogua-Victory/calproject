@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { GetServerSidePropsContext } from "next";
+import { GetServerSideProps } from "next";
 import { getCsrfToken, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import InputElement from "@components/Input";
 import { getSession } from "@helpers/auth";
+
 import Link from 'next/link';
 import Head from 'next/head';
 
@@ -12,11 +13,13 @@ interface ServerSideProps {
   csrfToken: string;
 }
 
+
 export default function Login({ csrfToken }: ServerSideProps) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const callbackUrl = typeof router.query?.callbackUrl === "string" ? router.query.callbackUrl : "/dashboard/overview";
 
@@ -35,8 +38,17 @@ export default function Login({ csrfToken }: ServerSideProps) {
       password,
       callbackUrl,
     });
+
+
     if (!response) {
       throw new Error("Received empty response from next auth");
+    }
+
+    if (response.error) {
+      setError("Email or password is incorrect");
+      setIsSubmitting(false);
+    } else {
+      setError("");
     }
 
     if (!response.error) {
@@ -58,34 +70,40 @@ export default function Login({ csrfToken }: ServerSideProps) {
           <h1 className="text-3xl font-bold text-center">Sign in to your account</h1>
           <form method="POST" className="mt-4" onSubmit={handleSubmit}>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken || undefined} hidden />
+            <small className=" text-red-700">{error}</small>
             <div className="mb-4">
               <label className="block">Email</label>
-              <InputElement
-                inputype='email'
+              <input
+                type='email'
+                required
                 value={email}
                 onInput={(e) => setEmail(e.currentTarget.value)}
+                placeholder="john@test.com"
+                className="w-full px-4 py-2 mt-2 border rounded-none focus:outline-none focus:ring-1 focus:ring-black"
               />
             </div>
 
             <div className="mt-4">
               <label className="block">Password</label>
               <span className="inline float-right">
-                <Link href="/auth/register" class="text-sm text-blue-600 hover:underline">Forgot password?</Link></span>
-              <InputElement
-                inputype='password'
+                <Link href="/auth/register" className="text-sm text-blue-600 hover:underline">Forgot password?</Link></span>
+              <input
+                type='password'
+                required
                 value={password}
                 onInput={(e) => setPassword(e.currentTarget.value)}
+                className="w-full px-4 py-2 mt-2 border rounded-none focus:outline-none focus:ring-1 focus:ring-black"
               />
             </div>
 
             <div className="mt-4">
-              <button type='submit' disabled={isSubmitting} className="px-6 py-2 block w-full text-white bg-black rounded-none">
+              <button type='submit' disabled={isSubmitting} className="block w-full px-6 py-2 text-white bg-black rounded-none">
                 Sign in
               </button>
             </div>
           </form>
-          <div className=" p-3">
-            <p className="text-center"> <span className=" text-gray-500">Don't have an account?</span>  <Link href="/" className="text-black font-bold">Create account</Link> </p>
+          <div className="p-3 ">
+            <p className="text-center"> <span className="text-gray-500 ">Don't have an account?</span>  <Link href="/" className="font-bold text-black">Create account</Link> </p>
           </div>
         </div>
 
@@ -93,11 +111,11 @@ export default function Login({ csrfToken }: ServerSideProps) {
 
     </>
 
-
   );
+
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const { req } = context;
   const session = await getSession({ req });
 
