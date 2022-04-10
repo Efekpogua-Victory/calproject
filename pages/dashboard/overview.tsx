@@ -6,11 +6,9 @@ import Layout from "@components/Layout";
 const Overview = () => {
 
     return (
-        <>
-            <Layout>
+        <Layout>
 
-            </Layout>
-        </>
+        </Layout>
     )
 };
 
