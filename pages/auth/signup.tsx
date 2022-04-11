@@ -34,7 +34,7 @@ export default function Signup() {
       })
       .then(() => {
         alert("success");
-        window.location.replace("/dashboard/overview");
+        window.location.replace("/event-types");
       })
       .catch((e) => {
         setIsSubmitting(false);

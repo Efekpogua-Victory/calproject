@@ -21,7 +21,7 @@ export default function Login({ csrfToken }: ServerSideProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const callbackUrl = typeof router.query?.callbackUrl === "string" ? router.query.callbackUrl : "/dashboard/overview";
+  const callbackUrl = typeof router.query?.callbackUrl === "string" ? router.query.callbackUrl : "/event-types";
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -70,7 +70,7 @@ export default function Login({ csrfToken }: ServerSideProps) {
           <h1 className="text-3xl font-bold text-center">Sign in to your account</h1>
           <form method="POST" className="mt-4" onSubmit={handleSubmit}>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken || undefined} hidden />
-            <small className=" text-red-700">{error}</small>
+            <small className="text-red-700 ">{error}</small>
             <div className="mb-4">
               <label className="block">Email</label>
               <input
@@ -86,7 +86,10 @@ export default function Login({ csrfToken }: ServerSideProps) {
             <div className="mt-4">
               <label className="block">Password</label>
               <span className="inline float-right">
-                <Link href="/auth/register" className="text-sm text-blue-600 hover:underline">Forgot password?</Link></span>
+                <Link href="#">
+                  <a className="text-sm text-black hover:underline"> forgot password? </a>
+                </Link>
+              </span>
               <input
                 type='password'
                 required
@@ -103,7 +106,11 @@ export default function Login({ csrfToken }: ServerSideProps) {
             </div>
           </form>
           <div className="p-3 ">
-            <p className="text-center"> <span className="text-gray-500 ">Don't have an account?</span>  <Link href="/" className="font-bold text-black">Create account</Link> </p>
+            <p className="text-center"> <span className="text-gray-500 ">Don &apos;t have an account?</span>
+              <Link href="/">
+                <a className="font-bold text-black">Create account</a>
+              </Link>
+            </p>
           </div>
         </div>
 
