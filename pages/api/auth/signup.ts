@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { NextApiRequest, NextApiResponse } from "next";
+
 import { hashPassword } from "@helpers/auth";
 import prisma from "@helpers/prisma";
 
@@ -9,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const data = req.body;
-  const { email, password, name } = data;
+  const { email, password, name, slug } = data;
   const userEmail = email.toLowerCase();
 
   if (!userEmail || !userEmail.includes("@")) {
@@ -38,6 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     data: {
       name: name,
       email: userEmail,
+      name_slug: slug,
       password: hashedPassword,
     },
   });

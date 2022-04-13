@@ -11,32 +11,49 @@ datasource db {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   name          String?
-  email         String?   @unique
+  name_slug     String?
+  email         String?     @unique
   emailVerified DateTime?
   image         String?
   password      String?
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @default(now()) @updatedAt @map(name: "updated_at")
+  createdAt     DateTime    @default(now()) @map(name: "created_at")
+  updatedAt     DateTime    @default(now()) @updatedAt @map(name: "updated_at")
+  event_type    EventType[]
 
   @@map(name: "users")
 }
 
 model EventType {
-  id Int @id @default(autoincrement())
-
-  @@map(name: "eventstypes")
+  id          Int     @id @default(autoincrement())
+  title       String
+  title_slug  String?
+  description String? @db.Text
+  location    String?
+  length      Int?
+  user        User?   @relation(fields: [user_id], references: [id])
+  user_id     Int
+  event       Event[]
 }
 
 model Event {
-  id Int @id @default(autoincrement())
+  id            Int        @id @default(autoincrement())
+  event_type    EventType? @relation(fields: [event_type_id], references: [id])
+  event_type_id Int
+  booking_date  DateTime
+  attendee      Attendee[]
 
   @@map(name: "events")
 }
 
-model Attender {
-  id Int @id @default(autoincrement())
+model Attendee {
+  id         Int    @id @default(autoincrement())
+  name       String
+  email      String @unique
+  extra_note String @db.Text
+  event      Event? @relation(fields: [event_id], references: [id])
+  event_id   Int
 
   @@map(name: "attendees")
 }
