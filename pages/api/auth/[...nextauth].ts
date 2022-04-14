@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import NextAuth from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
+
 import { verifyPassword } from "@helpers/auth";
 import prisma from "@helpers/prisma";
 
@@ -25,7 +26,6 @@ export default NextAuth({
           },
         });
 
-
         if (!user) return null;
 
         const isCorrectPassword = await verifyPassword(credentials.password, String(user.password));
@@ -48,7 +48,7 @@ export default NextAuth({
 
       return token;
     },
-    session: ({ session, token }) => {
+    session: ({ session, token, user }) => {
       if (token) {
         session.id = token.id;
       }

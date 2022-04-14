@@ -10,7 +10,8 @@
         "prettier": "prettier --write .",
         "prepare": "husky install",
         "pre-commit": "lint-staged",
-        "test": "jest --watch"
+        "test": "jest --watch",
+        "postinstall": "prisma generate"
     },
     "dependencies": {
         "@fortawesome/free-solid-svg-icons": "^6.1.1",

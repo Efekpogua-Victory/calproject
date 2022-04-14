@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -26,36 +26,38 @@ model User {
 }
 
 model EventType {
-  id          Int     @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   title       String
   title_slug  String?
-  description String? @db.Text
+  description String?   @db.Text
   location    String?
   length      Int?
-  user        User?   @relation(fields: [user_id], references: [id])
-  user_id     Int
-  event       Event[]
+  user        User?     @relation(fields: [user_id], references: [id])
+  user_id     Int?
+  event       Booking[]
+
+  @@map("event_types")
 }
 
-model Event {
-  id            Int        @id @default(autoincrement())
-  event_type    EventType? @relation(fields: [event_type_id], references: [id])
-  event_type_id Int
-  booking_date  DateTime
-  attendee      Attendee[]
+model Booking {
+  id            Int         @id @default(autoincrement())
+  event_type    EventType?  @relation(fields: [event_type_id], references: [id])
+  event_type_id Int?
+  booking_date  String?
+  attendee      Attenders[]
 
-  @@map(name: "events")
+  @@map(name: "bookings")
 }
 
-model Attendee {
-  id         Int    @id @default(autoincrement())
+model Attenders {
+  id         Int      @id @default(autoincrement())
   name       String
-  email      String @unique
-  extra_note String @db.Text
-  event      Event? @relation(fields: [event_id], references: [id])
-  event_id   Int
+  email      String   @unique
+  extra_note String   @db.Text
+  event      Booking? @relation(fields: [event_id], references: [id])
+  event_id   Int?
 
-  @@map(name: "attendees")
+  @@map(name: "attenders")
 }
 
 model Company {
