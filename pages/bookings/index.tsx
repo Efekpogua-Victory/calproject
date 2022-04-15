@@ -23,7 +23,7 @@ const Bookings = (props: any) => {
                   {new Date(booking.booking_date).toDateString()}
                 </p>
                 <h5 className="font-bold text-md block md:inline text-black"> {booking.event_type.title} </h5>
-                {booking.attendee.map((who) => (
+                {booking.attendee.map((who: any) => (
                   <p className="text-gray-400 md:block" key={who.id}>
                     {who.name}, {who.email}
                   </p>
