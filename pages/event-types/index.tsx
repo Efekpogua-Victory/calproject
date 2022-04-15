@@ -20,13 +20,13 @@ const EventTypes = (props: any) => {
           <div className="grid grid-rows-3">
             <div>
               <p>
-                Logged in as: <span className="font-bold text-black mb-2">{session.user?.email}</span>{" "}
+                Logged in as: <span className="font-bold text-black mb-2">{session?.user?.email}</span>
               </p>
               <h4 className="inline text-lg font-bold">Event Types</h4>
 
               <p className="text-gray-400">Create events to share for people to book on your calendar.</p>
             </div>
-            {props.events.map((event) => (
+            {props.events.map((event: any) => (
               <div className="p-4 mt-3 bg-white" key={event.id}>
                 <h5 className="font-bold text-md">{event.title}</h5>
                 <p className="text-gray-400">{event.description}</p>
