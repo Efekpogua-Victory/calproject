@@ -135,7 +135,7 @@ const Book = (props: any) => {
 
 export default Book;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const slug = context.params.book;
 
   const event = await prisma.eventType.findFirst({

@@ -57,7 +57,7 @@ const Success = (props: any) => {
 };
 export default Success;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   const bookingId = context.params.data;
 
   const booking = await prisma.booking.findUnique({

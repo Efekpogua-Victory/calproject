@@ -16,7 +16,7 @@ const Bookings = (props: any) => {
       </Head>
       <Layout>
         <div className="w-full h-full bg-gray-100 p-10">
-          {props.bookings.map((booking) => (
+          {props.bookings.map((booking: any) => (
             <div className="grid grid-rows-1" key={booking.id}>
               <div className="p-4 mt-3 bg-white">
                 <p className=" text-sm text-gray-800 inline mr-10">
