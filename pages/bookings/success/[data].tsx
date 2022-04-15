@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import prisma from "@helpers/prisma";
 
-const Success = (props) => {
+const Success = (props: object) => {
   const router = useRouter();
   console.log(props.booking);
 

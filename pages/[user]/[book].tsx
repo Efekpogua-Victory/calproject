@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import prisma from "@helpers/prisma";
 
-const Book = (props) => {
+const Book = (props: object) => {
   const router = useRouter();
   const [bookingdate, setBookingDate] = useState("");
   const [name, setName] = useState("");
