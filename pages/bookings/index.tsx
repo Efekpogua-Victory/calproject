@@ -7,7 +7,7 @@ import prisma from "@helpers/prisma";
 
 import Layout from "@components/Layout";
 
-const Bookings = (props) => {
+const Bookings = (props: any) => {
   console.log(props.bookings);
   return (
     <>
