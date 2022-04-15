@@ -86,7 +86,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         location: event.location,
         length: event.length,
         id: event.id,
-        url: `${host}/${event.user?.name_slug}/${event.title_slug}`,
+        url: `https://${host}/${event.user?.name_slug}/${event.title_slug}`,
       })),
     },
   };
