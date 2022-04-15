@@ -1,6 +1,15 @@
 /* eslint-disable prettier/prettier */
 
-const Input = (props) => {
+interface Props {
+  onInput: () => void;
+  type: string;
+  required: boolean;
+  value: string;
+  name: string;
+  placeholder: string;
+}
+
+const Input = (props: Props) => {
   const onInput = () => {
     props.onInput();
   };
