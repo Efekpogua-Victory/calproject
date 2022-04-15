@@ -5,7 +5,7 @@ import prisma from "@helpers/prisma";
 
 const Success = (props: any) => {
   const router = useRouter();
-  console.log(props.booking);
+  //console.log(props.booking);
 
   return (
     <>

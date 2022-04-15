@@ -16,7 +16,7 @@ const Book = (props: any) => {
   const eventtype = props.event.id;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const placebooking = (e) => {
+  const placebooking = (e: any) => {
     e.preventDefault();
     if (isSubmitting) {
       return;
