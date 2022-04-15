@@ -80,7 +80,7 @@ const Book = (props: any) => {
                           required
                           name="name"
                           placeholder="John Doe"
-                          onInput={(e) => setName(e.target.value)}
+                          onInput={(e) => setName(e.currentTarget.value)}
                           className="w-full px-4 py-2 mt-2 border rounded-none focus:outline-none focus:ring-1 focus:ring-black"
                         />
                       </div>
@@ -92,7 +92,7 @@ const Book = (props: any) => {
                           required
                           name="email"
                           placeholder="you@example.com"
-                          onInput={(e) => setEmail(e.target.value)}
+                          onInput={(e) => setEmail(e.currentTarget.value)}
                           className="w-full px-4 py-2 mt-2 border rounded-none focus:outline-none focus:ring-1 focus:ring-black"
                         />
                       </div>
@@ -102,7 +102,7 @@ const Book = (props: any) => {
                           name="note"
                           required
                           className="w-full px-4 py-2 mt-2 border rounded-none focus:outline-none focus:ring-1 focus:ring-black"
-                          onInput={(e) => setNote(e.target.value)}
+                          onInput={(e) => setNote(e.currentTarget.value)}
                           placeholder="Please share anything that will help prepare for the meeting">
                           {note}
                         </textarea>
